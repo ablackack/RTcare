@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Edit {{ bsi_card['opta'] }} {% endblock %}</h1>
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" name="opta"
+                   placeholder="OPTA" class="form-control"
+                   value="{{ request.form['opta'] or bsi_card['opta'] }}"/>
+        </div>
+        <div class="col-md-4">
+            <input type="text" name="issi"
+                   placeholder="ISSI" class="form-control"
+                   value="{{ request.form['issi'] or bsi_card['issi'] }}">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+<hr>
+{% endblock %}
