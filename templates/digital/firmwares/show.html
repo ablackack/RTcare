@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Firmware management {% endblock %}</h1>
+{% if error %}
+<div class="alert alert-danger" role="alert">
+    {{ error }}
+</div>
+{% endif %}
+<form method="post">
+    <div class="row">
+        <div class="col-md-10">
+            <input type="text" name="name"
+                   placeholder="Name" class="form-control"
+                   value="{{ request.form['name'] }}"/>
+        </div>
+        <div class="col-md-2 text-right">
+            <button type="submit" class="btn btn-primary">Add firmware</button>
+        </div>
+    </div>
+</form>
+
+<p>&nbsp;</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for firmware in firmwares %}
+    <form action="{{ url_for('delete_firmware', id=firmware['firmware_id']) }}" method="post"
+          id="deleteform{{ firmware['firmware_id'] }}"></form>
+    <tr>
+        <th scope="row" class="align-middle">{{ firmware['firmware_id'] }}</th>
+        <td class="align-middle">{{ firmware['name'] }}</td>
+        <td class="align-middle text-right">
+            <a href="{{ url_for('edit_firmware', id=firmware['firmware_id']) }}" type="button"
+               class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+            <button type="submit" form="deleteform{{ firmware['firmware_id'] }}" class="btn btn-danger"
+                    onclick="return confirm('Are you sure you want to delete {{ firmware['name'] }}?')">
+                <i class="bi bi-trash-fill"></i>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}

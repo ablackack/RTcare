@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Edit {{ model['name'] }} {% endblock %}</h1>
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" name="name"
+                   placeholder="Name" class="form-control"
+                   value="{{ request.form['name'] or model['name'] }}"/>
+        </div>
+        <div class="col-md-2">
+            <select name="manufacturer_id" class="form-control">
+                {% for db_manufacturer in db_manufacturers %}
+                    {% if db_manufacturer['manufacturer_id'] == manufacturer['manufacturer_id'] %}
+                        <option value="{{ db_manufacturer['manufacturer_id'] }}" selected>{{ db_manufacturer['name'] }}</option>
+                    {% else %}
+                        <option value="{{ db_manufacturer['manufacturer_id'] }}">{{ db_manufacturer['name'] }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="type_id" class="form-control">
+                {% for db_type in db_types %}
+                    {% if db_type['type_id'] == type['type_id'] %}
+                        <option value="{{ db_type['type_id'] }}" selected>{{ db_type['name'] }}</option>
+                    {% else %}
+                        <option value="{{ db_type['type_id'] }}">{{ db_type['name'] }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2 text-right">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+<hr>
+{% endblock %}

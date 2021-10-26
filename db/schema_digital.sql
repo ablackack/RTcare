@@ -8,7 +8,7 @@ CREATE TABLE manufacturers (
 DROP TABLE IF EXISTS parameters;
 CREATE TABLE parameters (
     parameter_id INTEGER,
-    name TEXT NOT NULL,
+    name TEXT UNIQUE NOT NULL,
     comment TEXT NULL,
     PRIMARY KEY (parameter_id)
 );
